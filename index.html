@@ -52,9 +52,9 @@
   </footer>
 
   <script>
-    // 🔗 BURAYA kendi linklerini ekle
-    const FORM_ENDPOINT = "https://formspree.io/f/your-id";  // 👈 Formspree linkini koy
-    const STRIPE_LINK   = "https://buy.stripe.com/your-link"; // 👈 Stripe Payment Linkini koy
+    // 👇 BURAYA kendi linklerini koy (şimdilik böyle kalsın, demo gibi çalışır)
+    const FORM_ENDPOINT = "https://formspree.io/f/your-id";  
+    const STRIPE_LINK   = "https://buy.stripe.com/your-link"; 
 
     const form = document.getElementById("bookingForm");
     const msg  = document.getElementById("msg");
@@ -70,14 +70,19 @@
       const data = Object.fromEntries(new FormData(form).entries());
 
       try {
+        // demo modu: gerçek Formspree linki yoksa sadece başarı göster
         if (!FORM_ENDPOINT.includes("your-id")) {
-          const res = await fetch(FORM_ENDPOINT, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-          });
-          if (!res.ok) throw new Error("Form submit failed");
+          await new Promise(r => setTimeout(r, 500));
+          msg.classList.remove("hidden");
+          form.reset();
+          return;
         }
+        const res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) throw new Error("Form submit failed");
         msg.classList.remove("hidden");
         form.reset();
       } catch (e) {
