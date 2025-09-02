@@ -1,5 +1,36 @@
-<form action="https://formspree.io/f/mzzaaevb" method="POST">
-  <input type="email" name="email" placeholder="Your email" required>
-  <textarea name="message" placeholder="Your message"></textarea>
-  <button type="submit">Send</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ZK Mobile Mechanic - Appointment Booking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; }
+    h1 { text-align: center; }
+    form { max-width: 500px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+    input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; }
+    button { background: black; color: white; font-weight: bold; cursor: pointer; }
+    button:hover { opacity: 0.8; }
+  </style>
+</head>
+<body>
+
+  <h1>Book an Appointment</h1>
+
+  <form action="https://formsubmit.co/zamankazimi88@gmail.com" method="POST">
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <input type="tel" name="phone" placeholder="Phone Number" required>
+    <input type="date" name="date" required>
+    <input type="time" name="time" required>
+    <textarea name="service" placeholder="Describe the issue (e.g., brakes, oil change)" required></textarea>
+
+    <!-- Hidden fields -->
+    <input type="hidden" name="_subject" value="New Appointment Request - ZK Mobile Mechanic">
+    <input type="hidden" name="_captcha" value="false">
+
+    <button type="submit">Submit Booking</button>
+  </form>
+
+</body>
+</html>
