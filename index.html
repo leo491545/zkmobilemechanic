@@ -1,56 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZK Mobile Mechanic</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50">
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Test Booking Form</title>
+  </head>
+  <body>
+    <h1>Test Appointment Form</h1>
 
-  <!-- Header -->
-  <header class="bg-white shadow p-6 text-center">
-    <h1 class="text-3xl font-bold">ZK Mobile Mechanic</h1>
-    <p class="text-gray-600">On-site diagnostics • Brakes • Oil • Hybrid support</p>
-  </header>
-
-  <!-- Services Section -->
-  <section class="max-w-3xl mx-auto mt-10 bg-white shadow rounded p-6">
-    <h2 class="text-2xl font-bold mb-4">Our Services</h2>
-    <ul class="list-disc list-inside text-gray-700 space-y-2">
-      <li>Diagnostics – $89</li>
-      <li>Battery / No-Start – $129</li>
-      <li>Brakes – $149</li>
-      <li>Oil & Filter – $99</li>
-      <li>Check Engine Light – $129</li>
-    </ul>
-  </section>
-
-  <!-- Booking Form -->
-  <section class="max-w-3xl mx-auto mt-10 bg-white shadow rounded p-6">
-    <h2 class="text-2xl font-bold mb-4">Book an Appointment</h2>
-
-    <form action="https://formspree.io/f/mzzaaevb" method="POST" class="space-y-4">
-      <input type="text" name="name" placeholder="Full Name" class="w-full p-3 border rounded" required>
-      <input type="email" name="email" placeholder="Email" class="w-full p-3 border rounded" required>
-      <input type="tel" name="phone" placeholder="Phone Number" class="w-full p-3 border rounded" required>
-      <input type="date" name="date" class="w-full p-3 border rounded" required>
-      <input type="time" name="time" class="w-full p-3 border rounded" required>
-      <textarea name="service" placeholder="Service details or issues" class="w-full p-3 border rounded" rows="4" required></textarea>
-
-      <!-- Hidden subject field -->
-      <input type="hidden" name="_subject" value="New Appointment Request from ZK Mobile Mechanic">
-
-      <button type="submit" class="bg-black text-white px-5 py-3 rounded font-semibold w-full">
-        Submit Booking
-      </button>
+    <form action="https://formspree.io/f/mzzaaevb" method="POST">
+      <label>
+        Your Name:
+        <input type="text" name="name" required>
+      </label>
+      <br><br>
+      <label>
+        Your Email:
+        <input type="email" name="email" required>
+      </label>
+      <br><br>
+      <label>
+        Message:
+        <textarea name="message"></textarea>
+      </label>
+      <br><br>
+      <button type="submit">Send</button>
     </form>
-  </section>
-
-  <!-- Footer -->
-  <footer class="text-center text-sm text-gray-500 mt-10 pb-6">
-    © 2025 ZK AutoTech Services LLC • Kent, WA • (206) 551-2789 • zamankazimi88@gmail.com
-  </footer>
-
-</body>
+  </body>
 </html>
