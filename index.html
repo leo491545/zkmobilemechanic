@@ -1,81 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZK Mobile Mechanic</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-gray-50">
 
-  <header class="bg-black text-white p-6 text-center text-2xl font-bold">
-    ZK Mobile Mechanic Services
+  <!-- Header -->
+  <header class="bg-white shadow p-6 text-center">
+    <h1 class="text-3xl font-bold">ZK Mobile Mechanic</h1>
+    <p class="text-gray-600">On-site diagnostics • Brakes • Oil • Hybrid support</p>
   </header>
 
-  <main class="max-w-2xl mx-auto p-6">
-    <h2 class="text-xl font-semibold mb-4">Our Services</h2>
-    <ul class="list-disc list-inside mb-8">
-      <li>Engine Diagnostics</li>
-      <li>Battery Replacement</li>
-      <li>Brake Repair</li>
-      <li>Oil Change</li>
-      <li>Hybrid System Check</li>
+  <!-- Services Section -->
+  <section class="max-w-3xl mx-auto mt-10 bg-white shadow rounded p-6">
+    <h2 class="text-2xl font-bold mb-4">Our Services</h2>
+    <ul class="list-disc list-inside text-gray-700 space-y-2">
+      <li>Diagnostics – $89</li>
+      <li>Battery / No-Start – $129</li>
+      <li>Brakes – $149</li>
+      <li>Oil & Filter – $99</li>
+      <li>Check Engine Light – $129</li>
     </ul>
+  </section>
 
-    <h2 class="text-xl font-semibold mb-4">Book an Appointment</h2>
-    <form id="bookingForm" class="space-y-4">
-      <input type="text" name="name" placeholder="Full Name" class="w-full p-2 border rounded" required>
-      <input type="email" name="email" placeholder="Email" class="w-full p-2 border rounded" required>
-      <input type="tel" name="phone" placeholder="Phone Number" class="w-full p-2 border rounded" required>
-      <input type="date" name="date" class="w-full p-2 border rounded" required>
-      <input type="time" name="time" class="w-full p-2 border rounded" required>
-      <textarea name="service" placeholder="Describe the issue" class="w-full p-2 border rounded" required></textarea>
-      <button type="submit" class="bg-black text-white px-4 py-2 rounded">Submit Booking</button>
+  <!-- Booking Form -->
+  <section class="max-w-3xl mx-auto mt-10 bg-white shadow rounded p-6">
+    <h2 class="text-2xl font-bold mb-4">Book an Appointment</h2>
+
+    <form action="https://formspree.io/f/mzzaaevb" method="POST" class="space-y-4">
+      <input type="text" name="name" placeholder="Full Name" class="w-full p-3 border rounded" required>
+      <input type="email" name="email" placeholder="Email" class="w-full p-3 border rounded" required>
+      <input type="tel" name="phone" placeholder="Phone Number" class="w-full p-3 border rounded" required>
+      <input type="date" name="date" class="w-full p-3 border rounded" required>
+      <input type="time" name="time" class="w-full p-3 border rounded" required>
+      <textarea name="service" placeholder="Service details or issues" class="w-full p-3 border rounded" rows="4" required></textarea>
+
+      <!-- Hidden subject field -->
+      <input type="hidden" name="_subject" value="New Appointment Request from ZK Mobile Mechanic">
+
+      <button type="submit" class="bg-black text-white px-5 py-3 rounded font-semibold w-full">
+        Submit Booking
+      </button>
     </form>
+  </section>
 
-    <p id="msg" class="hidden text-green-600 mt-4">✅ Booking received! Please proceed with deposit.</p>
-    <p id="err" class="hidden text-red-600 mt-4"></p>
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 mt-10 pb-6">
+    © 2025 ZK AutoTech Services LLC • Kent, WA • (206) 551-2789 • zamankazimi88@gmail.com
+  </footer>
 
-    <a id="depositBtn" href="#" target="_blank" class="hidden mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">
-      Pay Deposit
-    </a>
-  </main>
-
-  <script>
-    const FORM_ENDPOINT = "https://formspree.io/f/mzzaaevb"; // senin linkin
-    const STRIPE_LINK   = "https://buy.stripe.com/test_123456"; // stripe linkini buraya koy
-
-    const form = document.getElementById("bookingForm");
-    const msg  = document.getElementById("msg");
-    const err  = document.getElementById("err");
-    const depositBtn = document.getElementById("depositBtn");
-    depositBtn.href = STRIPE_LINK;
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      err.classList.add("hidden");
-      msg.classList.add("hidden");
-      depositBtn.classList.add("hidden");
-
-      const formData = new FormData(form);
-
-      try {
-        const res = await fetch(FORM_ENDPOINT, {
-          method: "POST",
-          body: formData,
-          headers: { "Accept": "application/json" }
-        });
-
-        if (!res.ok) throw new Error("Form submit failed");
-
-        msg.classList.remove("hidden");
-        depositBtn.classList.remove("hidden");
-        form.reset();
-      } catch (e) {
-        err.textContent = "Something went wrong. Please try again.";
-        err.classList.remove("hidden");
-      }
-    });
-  </script>
 </body>
 </html>
