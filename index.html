@@ -1,61 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZK Mobile Mechanic</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-100 text-gray-900">
 
-  <!-- HEADER -->
-  <header class="p-4 bg-white shadow">
-    <h1 class="text-xl font-bold">ZK Mobile Mechanic</h1>
-    <p class="text-sm text-gray-600">On-site diagnostics • Brakes • Oil • Hybrid support</p>
+  <header class="bg-black text-white p-6 text-center text-2xl font-bold">
+    ZK Mobile Mechanic Services
   </header>
 
-  <!-- SERVICES -->
-  <section class="max-w-3xl mx-auto p-6">
-    <h2 class="text-2xl font-bold mb-4">Our Services & Prices</h2>
-    <ul class="space-y-2">
-      <li class="flex justify-between border-b pb-1"><span>Diagnostics</span><span>$89</span></li>
-      <li class="flex justify-between border-b pb-1"><span>Battery / No-Start</span><span>$129</span></li>
-      <li class="flex justify-between border-b pb-1"><span>Brakes</span><span>$149</span></li>
-      <li class="flex justify-between border-b pb-1"><span>Oil & Filter Change</span><span>$99</span></li>
-      <li class="flex justify-between border-b pb-1"><span>Check Engine Light</span><span>$129</span></li>
+  <main class="max-w-2xl mx-auto p-6">
+    <h2 class="text-xl font-semibold mb-4">Our Services</h2>
+    <ul class="list-disc list-inside mb-8">
+      <li>Engine Diagnostics</li>
+      <li>Battery Replacement</li>
+      <li>Brake Repair</li>
+      <li>Oil Change</li>
+      <li>Hybrid System Check</li>
     </ul>
-  </section>
 
-  <!-- BOOKING FORM -->
-  <section class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
-    <h2 class="text-2xl font-bold mb-4">Book an Appointment</h2>
-    <form id="bookingForm" class="space-y-3">
-      <input name="name" placeholder="Full Name" class="w-full border p-2 rounded" required>
-      <input name="email" type="email" placeholder="Email" class="w-full border p-2 rounded" required>
-      <input name="phone" placeholder="Phone" class="w-full border p-2 rounded" required>
-      <input name="date" type="date" class="w-full border p-2 rounded" required>
-      <input name="time" type="time" class="w-full border p-2 rounded" required>
-      <textarea name="notes" placeholder="Notes" class="w-full border p-2 rounded"></textarea>
-      <button class="bg-black text-white px-4 py-2 rounded">Submit Booking</button>
+    <h2 class="text-xl font-semibold mb-4">Book an Appointment</h2>
+    <form id="bookingForm" class="space-y-4">
+      <input type="text" name="name" placeholder="Full Name" class="w-full p-2 border rounded" required>
+      <input type="email" name="email" placeholder="Email" class="w-full p-2 border rounded" required>
+      <input type="tel" name="phone" placeholder="Phone Number" class="w-full p-2 border rounded" required>
+      <input type="date" name="date" class="w-full p-2 border rounded" required>
+      <input type="time" name="time" class="w-full p-2 border rounded" required>
+      <textarea name="service" placeholder="Describe the issue" class="w-full p-2 border rounded" required></textarea>
+      <button type="submit" class="bg-black text-white px-4 py-2 rounded">Submit Booking</button>
     </form>
 
-    <div id="msg" class="hidden mt-4 text-green-700 font-semibold">
-      ✅ Booking received! Please pay your deposit:
-      <a id="depositBtn" class="ml-2 underline text-blue-600" target="_blank">Pay Deposit</a>
-    </div>
+    <p id="msg" class="hidden text-green-600 mt-4">✅ Booking received! Please proceed with deposit.</p>
+    <p id="err" class="hidden text-red-600 mt-4"></p>
 
-    <div id="err" class="hidden mt-4 text-red-600 font-semibold"></div>
-  </section>
-
-  <footer class="text-center text-xs text-gray-500 mt-10 p-4">
-    © 2025 ZK AutoTech Services LLC • Kent, WA
-  </footer>
+    <a id="depositBtn" href="#" target="_blank" class="hidden mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded">
+      Pay Deposit
+    </a>
+  </main>
 
   <script>
-    // ✅ Formspree gerçek link
-    const FORM_ENDPOINT = "https://formspree.io/f/mzzaaevb";  
-    // 👇 Stripe linkini buraya ekle (şimdilik boş bırakabilirsin)
-    const STRIPE_LINK   = "https://buy.stripe.com/your-link"; 
+    const FORM_ENDPOINT = "https://formspree.io/f/mzzaaevb"; // senin linkin
+    const STRIPE_LINK   = "https://buy.stripe.com/test_123456"; // stripe linkini buraya koy
 
     const form = document.getElementById("bookingForm");
     const msg  = document.getElementById("msg");
@@ -67,18 +55,21 @@
       e.preventDefault();
       err.classList.add("hidden");
       msg.classList.add("hidden");
+      depositBtn.classList.add("hidden");
 
-      const data = Object.fromEntries(new FormData(form).entries());
+      const formData = new FormData(form);
 
       try {
         const res = await fetch(FORM_ENDPOINT, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
+          body: formData,
+          headers: { "Accept": "application/json" }
         });
+
         if (!res.ok) throw new Error("Form submit failed");
 
         msg.classList.remove("hidden");
+        depositBtn.classList.remove("hidden");
         form.reset();
       } catch (e) {
         err.textContent = "Something went wrong. Please try again.";
